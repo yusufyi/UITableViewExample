@@ -12,8 +12,12 @@ class tableList: UITableViewController {
 
     var textField = UITextField()
     var itemArray = ["Find Milk","Drive Car","Earn Money"]
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let items =  defaults.array(forKey: "TableViewArray") as? [String] {
+            itemArray = items
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +52,7 @@ class tableList: UITableViewController {
             if(self.textField.text != ""){
             self.itemArray.append(self.textField.text!)
             }
+                self.defaults.set(self.itemArray, forKey: "TableViewArray")
                 self.tableView.reloadData()
             
         }
